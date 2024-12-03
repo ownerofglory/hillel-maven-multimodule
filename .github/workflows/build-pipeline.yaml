@@ -1,0 +1,19 @@
+name: Build pipeline
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./mvnw test
+        name: Execute maven test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./mvnw package
+        name: Build maven artifact
